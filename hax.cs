@@ -6,31 +6,32 @@ using System.IO;
 
 public class Hax {
 	public static void Main() {
-		var info = new ProcessStartInfo {
-			UseShellExecute = false,
-			RedirectStandardOutput = true,
-			RedirectStandardError = true,
-		};
-		info.EnvironmentVariables.Clear ();
+		Process exe = new Process ();
+		exe.StartInfo.EnvironmentVariables.Clear ();
+		exe.StartInfo.UseShellExecute = false;
+		exe.StartInfo.RedirectStandardOutput = true;
+		exe.StartInfo.RedirectStandardError = true;
 #if FAST
-		info.EnvironmentVariables["LANG"] = "C.UTF-8";
+		exe.StartInfo.EnvironmentVariables["LANG"] = "C.UTF-8";
 #endif
-		// info.FileName = "/home/lewurm/monoperf/installation/opt/mono-2015.10.29+01.40.50/bin/mono-sgen";
-		// info.WorkingDirectory = "/home/lewurm/work/benchmarker/tests/scimark/";
-		info.FileName = "/Users/bernhardu/work/mono/b/bin/mono";
-		info.WorkingDirectory = "/Users/bernhardu/work/benchmarker/tests/scimark/";
-		info.Arguments = "--stats -O=-aot scimark.exe MM";
-		using (Process exe = Process.Start (info)) {
-			exe.WaitForExit ();
-			var stdout = Task.Factory.StartNew (() => new StreamReader (exe.StandardOutput.BaseStream).ReadToEnd (), TaskCreationOptions.LongRunning);
-			var stderr = Task.Factory.StartNew (() => new StreamReader (exe.StandardError.BaseStream).ReadToEnd (), TaskCreationOptions.LongRunning);
+		// exe.StartInfo.FileName = "/Users/bernhardu/work/mono/b/bin/mono";
+		exe.StartInfo.FileName = "/home/lewurm/monoperf/installation/opt/mono-2015.10.29+01.40.50/bin/mono-sgen";
+		// exe.StartInfo.WorkingDirectory = "/Users/bernhardu/work/benchmarker/tests/scimark/";
+		exe.StartInfo.WorkingDirectory = "/home/lewurm/monoperf/benchmarker/tests/scimark/";
+		exe.StartInfo.Arguments = "--debug --stats -O=-aot scimark.exe MM";
 
-			if (exe.ExitCode != 0) {
-				Console.Out.WriteLine ("forking failed a bit");
-			}
+		int i = 0;
+		int j = 0;
 
-			Console.Out.WriteLine ("stdout:\n{0}", stdout.Result);
-			Console.Out.WriteLine ("stderr:\n{0}", stderr.Result);
+		exe.OutputDataReceived += (sender, args) => Console.WriteLine ("{0}", args.Data);
+		exe.ErrorDataReceived += (sender, args) => Console.WriteLine ("{0}", args.Data);
+		exe.Start ();
+		exe.BeginOutputReadLine ();
+		exe.BeginErrorReadLine ();
+
+		exe.WaitForExit ();
+		if (exe.ExitCode != 0) {
+			Console.Out.WriteLine ("forking failed a bit");
 		}
 	}
 }
