@@ -12,10 +12,14 @@ public class Hax {
 			RedirectStandardError = true,
 		};
 		info.EnvironmentVariables.Clear ();
+#if FAST
 		info.EnvironmentVariables["LANG"] = "C.UTF-8";
-		info.FileName = "/home/lewurm/monoperf/installation/opt/mono-2015.10.29+01.40.50/bin/mono-sgen";
-		info.WorkingDirectory = "/home/lewurm/monoperf/benchmarker/tests/scimark/";
-		info.Arguments = "--stats scimark.exe MM";
+#endif
+		// info.FileName = "/home/lewurm/monoperf/installation/opt/mono-2015.10.29+01.40.50/bin/mono-sgen";
+		// info.WorkingDirectory = "/home/lewurm/work/benchmarker/tests/scimark/";
+		info.FileName = "/Users/bernhardu/work/mono/b/bin/mono";
+		info.WorkingDirectory = "/Users/bernhardu/work/benchmarker/tests/scimark/";
+		info.Arguments = "--stats -O=-aot scimark.exe MM";
 		using (Process exe = Process.Start (info)) {
 			exe.WaitForExit ();
 			var stdout = Task.Factory.StartNew (() => new StreamReader (exe.StandardOutput.BaseStream).ReadToEnd (), TaskCreationOptions.LongRunning);
