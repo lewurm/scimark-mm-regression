@@ -18,10 +18,7 @@ public class Hax {
 		exe.StartInfo.FileName = "/home/lewurm/monoperf/installation/opt/mono-2015.10.29+01.40.50/bin/mono-sgen";
 		// exe.StartInfo.WorkingDirectory = "/Users/bernhardu/work/benchmarker/tests/scimark/";
 		exe.StartInfo.WorkingDirectory = "/home/lewurm/monoperf/benchmarker/tests/scimark/";
-		exe.StartInfo.Arguments = "--debug --stats -O=-aot scimark.exe MM";
-
-		int i = 0;
-		int j = 0;
+		exe.StartInfo.Arguments = "--stats -O=-aot scimark.exe MM";
 
 		exe.OutputDataReceived += (sender, args) => Console.WriteLine ("{0}", args.Data);
 		exe.ErrorDataReceived += (sender, args) => Console.WriteLine ("{0}", args.Data);
