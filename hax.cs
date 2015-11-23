@@ -14,8 +14,8 @@ public class Hax {
 #if FAST
 		exe.StartInfo.EnvironmentVariables["LANG"] = "C.UTF-8";
 #endif
-		exe.StartInfo.FileName = "./monobuild/bin/mono-sgen";
-		exe.StartInfo.Arguments = "--stats -O=-aot scimark.exe MM";
+		exe.StartInfo.FileName = "./perf";
+		exe.StartInfo.Arguments = "stat -d ./monobuild/bin/mono-sgen -O=-aot scimark.exe MM";
 
 		exe.OutputDataReceived += (sender, args) => Console.WriteLine ("{0}", args.Data);
 		exe.ErrorDataReceived += (sender, args) => Console.WriteLine ("{0}", args.Data);
