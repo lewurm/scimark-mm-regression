@@ -1,0 +1,9 @@
+prefix=/home/lewurm/monoperf/monobuild
+exec_prefix=${prefix}
+libdir=/home/lewurm/monoperf/monobuild/lib
+sourcesdir=${libdir}/monodoc/sources
+
+Name: Monodoc
+Description: Monodoc - Mono Documentation Tools
+Version: 4.3.0
+Libs: /r:${prefix}/lib/mono/monodoc/monodoc.dll 

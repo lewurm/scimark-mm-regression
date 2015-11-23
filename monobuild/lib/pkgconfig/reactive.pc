@@ -1,0 +1,4 @@
+Name: Reactive Extensions
+Description: Reactive Extensions
+Version: 4.3.0
+Libs: -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Interfaces.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Core.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Linq.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.PlatformServices.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Providers.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Debugger.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Experimental.dll -r:/home/lewurm/monoperf/monobuild/lib/mono/4.5/System.Reactive.Runtime.Remoting.dll
